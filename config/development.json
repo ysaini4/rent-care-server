@@ -1,3 +1,4 @@
 {
-  "db": "mongodb://localhost/rent-care"
+  "db": "mongodb://localhost/rent-care",
+  "cloudnaryDir": "temp"
 }

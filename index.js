@@ -1,13 +1,11 @@
 const express = require("express");
-const config = require("config");
 const app = express();
 
 require("./startup/db")();
-const port = process.env.PORT || 3000;
+require("./startup/cloudnary")();
+require("./startup/routes")(app);
 
-app.get("/", (req, res) => {
-  res.send("Hello Yogy");
-});
+const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {
   console.log(`server is listening at ${port}`);
 });
