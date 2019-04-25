@@ -1,4 +1,6 @@
 {
   "db": "mongodb://localhost/rent-care",
-  "cloudnaryDir": "temp"
+  "cloudnaryDir": "temp",
+  "jwtPrivateKey": "helloyogy",
+  "requiresAuth": true
 }

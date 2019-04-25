@@ -4,7 +4,8 @@ const config = require("config");
 const { Property } = require("../models/property");
 const multerUploads = require("../utility/multipartform");
 const cloudinaryUpload = require("../utility/cloudinary");
-router.post("/", multerUploads.single("image"), async (req, res) => {
+const { auth, adminAuth } = require("../middleware/auth");
+router.post("/", auth, multerUploads.single("image"), async (req, res) => {
   try {
     let uploadRes = await cloudinaryUpload(
       req.file,
@@ -21,5 +22,8 @@ router.post("/", multerUploads.single("image"), async (req, res) => {
   } catch (err) {
     res.send({ from: "catch", error: err });
   }
+});
+router.delete("/", adminAuth, async (req, res) => {
+  res.send(req.user);
 });
 module.exports = router;
