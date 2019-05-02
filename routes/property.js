@@ -11,16 +11,68 @@ router.post("/", auth, multerUploads.single("Image"), async (req, res) => {
       req.file,
       config.get("cloudnaryDir")
     );
-    let property = new Property({
-      name: "Yogy",
-      phone: "89520",
-      email: "email.cm",
-      image: uploadRes.secure_url
-    });
+    req.body.Image = uploadRes.secure_url;
+    req.body.Date = new Date();
+    req.body.MarkAsRead = false;
+    req.body.Publish = false;
+    req.body.ShowAtHome = false;
+    let property = new Property(req.body);
     property = await property.save();
-    res.send(property);
+    if (property) res.send({ status: true, msg: "Property added." });
+    else throw error;
   } catch (err) {
-    res.send({ from: "catch", error: err });
+    res
+      .status(500)
+      .send({ status: false, msg: "Property not added.", error: err });
+  }
+});
+router.get("/", async (req, res) => {
+  try {
+    const properties = await Property.find();
+    res.send(properties);
+  } catch (err) {
+    res
+      .status(500)
+      .send({ status: false, msg: "Unable to find Properties", error: err });
+  }
+});
+router.post("/search", async (req, res) => {
+  try {
+    const properties = await Property.find(req.body);
+    res.send(properties);
+  } catch (err) {
+    res
+      .status(500)
+      .send({ status: false, msg: "Unable to find Properties", error: err });
+  }
+});
+router.put("/updateproperty", async (req, res) => {
+  try {
+    console.log(req.body);
+    const result = await Property.update(
+      req.body.condation,
+      req.body.updateData
+    );
+    if (result && result.nModified)
+      res.send({ status: true, msg: "Property updated.", res: result });
+    else {
+      throw result;
+    }
+  } catch (err) {
+    res
+      .status(500)
+      .send({ status: false, msg: "Unable to update Property", error: err });
+  }
+});
+router.put("/markunread", async (req, res) => {
+  try {
+    const result = await Property.updateMany({}, { MarkAsRead: false });
+    if (result && result.nModified)
+      res.send({ status: true, msg: "Property marked as unread." });
+  } catch (err) {
+    res
+      .status(500)
+      .send({ status: false, msg: "Unable to update Property", error: err });
   }
 });
 router.delete("/", adminAuth, async (req, res) => {
