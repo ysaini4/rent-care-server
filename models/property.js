@@ -8,6 +8,7 @@ const Property = mongoose.model(
     Publish: Boolean,
     ShowAtHome: Boolean,
     Property: String,
+    PropertyFor: String,
     Ptype: String,
     Name: String,
     "Company Name": String,

@@ -5,7 +5,7 @@ const { Property } = require("../models/property");
 const multerUploads = require("../utility/multipartform");
 const cloudinaryUpload = require("../utility/cloudinary");
 const { auth, adminAuth } = require("../middleware/auth");
-router.post("/", auth, multerUploads.single("Image"), async (req, res) => {
+router.post("/", multerUploads.single("Image"), async (req, res) => {
   try {
     let uploadRes = await cloudinaryUpload(
       req.file,
@@ -48,7 +48,6 @@ router.post("/search", async (req, res) => {
 });
 router.put("/updateproperty", async (req, res) => {
   try {
-    console.log(req.body);
     const result = await Property.update(
       req.body.condation,
       req.body.updateData
