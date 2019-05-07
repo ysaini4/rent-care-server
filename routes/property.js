@@ -46,6 +46,74 @@ router.post("/search", async (req, res) => {
       .send({ status: false, msg: "Unable to find Properties", error: err });
   }
 });
+router.post("/gotp", async (req, res) => {
+  try {
+    var http = require("http");
+
+    var options = {
+      method: "POST",
+      hostname: "control.msg91.com",
+      port: null,
+      path: `/api/sendotp.php?mobile=${
+        req.body.mobile
+      }&authkey=275294A6MSZJwM5ccfbcd4&message=##OTP##&sender=RNTCR`,
+      headers: {}
+    };
+
+    var req1 = http.request(options, function(res1) {
+      var chunks = [];
+
+      res1.on("data", function(chunk) {
+        chunks.push(chunk);
+      });
+
+      res1.on("end", function() {
+        var body = Buffer.concat(chunks);
+        res.send(body.toString());
+      });
+    });
+
+    req1.end();
+  } catch (err) {
+    res
+      .status(500)
+      .send({ status: false, msg: "Unable to Generate Otp", error: err });
+  }
+});
+router.post("/votp", async (req, res) => {
+  try {
+    var http = require("http");
+
+    var options = {
+      method: "POST",
+      hostname: "control.msg91.com",
+      port: null,
+      path: `/api/verifyRequestOTP.php?authkey=275294A6MSZJwM5ccfbcd4&mobile=${
+        req.body.mobile
+      }&otp=${req.body.otp}`,
+      headers: {}
+    };
+
+    var req1 = http.request(options, function(res1) {
+      var chunks = [];
+
+      res1.on("data", function(chunk) {
+        chunks.push(chunk);
+      });
+
+      res1.on("end", function() {
+        var body = Buffer.concat(chunks);
+        res.send(body.toString());
+      });
+    });
+
+    req1.end();
+  } catch (err) {
+    res
+      .status(500)
+      .send({ status: false, msg: "Unable to Generate Otp", error: err });
+  }
+});
 router.put("/updateproperty", async (req, res) => {
   try {
     const result = await Property.update(
