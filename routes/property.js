@@ -5,27 +5,33 @@ const { Property } = require("../models/property");
 const multerUploads = require("../utility/multipartform");
 const cloudinaryUpload = require("../utility/cloudinary");
 const { auth, adminAuth } = require("../middleware/auth");
-router.post("/", multerUploads.single("Image"), async (req, res) => {
-  try {
-    let uploadRes = await cloudinaryUpload(
-      req.file,
-      config.get("cloudnaryDir")
-    );
-    req.body.Image = uploadRes.secure_url;
-    req.body.Date = new Date();
-    req.body.MarkAsRead = false;
-    req.body.Publish = false;
-    req.body.ShowAtHome = false;
-    let property = new Property(req.body);
-    property = await property.save();
-    if (property) res.send({ status: true, msg: "Property added." });
-    else throw error;
-  } catch (err) {
-    res
-      .status(500)
-      .send({ status: false, msg: "Property not added.", error: err });
+const { pNumRefctor } = require("../middleware/pNumRefctor");
+router.post(
+  "/",
+  multerUploads.single("Image"),
+  pNumRefctor,
+  async (req, res) => {
+    try {
+      let uploadRes = await cloudinaryUpload(
+        req.file,
+        config.get("cloudnaryDir")
+      );
+      req.body.Image = uploadRes.secure_url;
+      req.body.Date = new Date();
+      req.body.MarkAsRead = false;
+      req.body.Publish = false;
+      req.body.ShowAtHome = false;
+      let property = new Property(req.body);
+      property = await property.save();
+      if (property) res.send({ status: true, msg: "Property added." });
+      else throw error;
+    } catch (err) {
+      res
+        .status(500)
+        .send({ status: false, msg: "Property not added.", error: err });
+    }
   }
-});
+);
 router.get("/", async (req, res) => {
   try {
     const properties = await Property.find();
