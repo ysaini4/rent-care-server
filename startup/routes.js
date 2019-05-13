@@ -3,6 +3,8 @@ var cors = require("cors");
 
 const property = require("../routes/property");
 const user = require("../routes/user");
+const buyer = require("../routes/buyer");
+
 module.exports = function(app) {
   app.use(cors());
   app.use(express.urlencoded({ extended: true }));
@@ -21,4 +23,5 @@ module.exports = function(app) {
   app.use(express.json());
   app.use("/property", property);
   app.use("/user", user);
+  app.use("/buyer", buyer);
 };

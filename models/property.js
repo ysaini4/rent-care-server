@@ -10,6 +10,7 @@ const Property = mongoose.model(
     Property: String,
     PropertyFor: String,
     Ptype: String,
+    Address: String,
     Name: String,
     "Company Name": String,
     "Refrance Name": String,
