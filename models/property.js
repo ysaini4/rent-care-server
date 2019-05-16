@@ -20,7 +20,7 @@ const Property = mongoose.model(
     District: String,
     City: String,
     Location: String,
-    Floor: String,
+    Floors: String,
     Facing: String,
     "Super Area": Number,
     "Carpet Area": Number,

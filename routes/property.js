@@ -32,7 +32,7 @@ router.post(
     }
   }
 );
-router.get("/", async (req, res) => {
+router.get("/", adminAuth, async (req, res) => {
   try {
     const properties = await Property.find();
     res.send(properties);
@@ -42,7 +42,17 @@ router.get("/", async (req, res) => {
       .send({ status: false, msg: "Unable to find Properties", error: err });
   }
 });
-router.post("/search", async (req, res) => {
+router.delete("/", async (req, res) => {
+  try {
+    const delRes = await Property.deleteOne(req.body);
+    if (delRes) res.send({ status: true, msg: "Property Deleted." });
+  } catch (err) {
+    res
+      .status(500)
+      .send({ status: false, msg: "Unable to Delete Property", error: err });
+  }
+});
+router.post("/search", adminAuth, async (req, res) => {
   try {
     const properties = await Property.find(req.body);
     res.send(properties);

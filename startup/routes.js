@@ -14,10 +14,14 @@ module.exports = function(app) {
     res.setHeader("Access-Control-Allow-Credentials", true);
     res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
     res.setHeader("Access-Control-Max-Age", "3600");
-    res.setHeader(
+    res.header(
       "Access-Control-Allow-Headers",
-      "Content-Type, Accept, X-Requested-With, auth"
+      "Origin, X-Requested-With, Content-Type, Accept"
     );
+    /*res.setHeader(
+      "Access-Control-Allow-Headers",
+      "Content-Type, Accept, X-Requested-With, x-auth-token"
+    );*/
     next();
   });
   app.use(express.json());
