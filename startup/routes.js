@@ -2,6 +2,7 @@ const express = require("express");
 var cors = require("cors");
 
 const property = require("../routes/property");
+const requestproperty = require("../routes/requestproperty");
 const user = require("../routes/user");
 const buyer = require("../routes/buyer");
 
@@ -26,6 +27,7 @@ module.exports = function(app) {
   });
   app.use(express.json());
   app.use("/property", property);
+  app.use("/requestproperty", requestproperty);
   app.use("/user", user);
   app.use("/buyer", buyer);
 };

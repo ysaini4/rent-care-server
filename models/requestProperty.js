@@ -10,7 +10,7 @@ const schema = new mongoose.Schema({
   Address: String,
   Name: String,
   "Company Name": String,
-  "Refrance Name": String,
+  "Reference Person": String,
   Designation: String,
   Email: String,
   State: String,
@@ -79,85 +79,8 @@ const schema = new mongoose.Schema({
   "Banquet Hall": Boolean,
   Date: Date
 });
-const schemaHeader = new mongoose.Schema({
-  topId: Number,
-  MarkAsRead: Boolean,
-  Publish: Boolean,
-  ShowAtHome: Boolean,
-  Property: Boolean,
-  PropertyFor: Boolean,
-  Ptype: Boolean,
-  Address: Boolean,
-  Name: Boolean,
-  "Company Name": Boolean,
-  "Refrance Name": Boolean,
-  Designation: Boolean,
-  Email: Boolean,
-  State: Boolean,
-  District: Boolean,
-  City: Boolean,
-  Location: Boolean,
-  Floors: Boolean,
-  Facing: Boolean,
-  "Super Area": Boolean,
-  "Carpet Area": Boolean,
-  "Approx Area": Boolean,
-  Budget: Boolean,
-  Image: Boolean,
-  Having: Boolean,
-  Badrooms: Boolean,
-  Bathrooms: Boolean,
-  Balcony: Boolean,
-  "PG Name": Boolean,
-  "Refrance Person": Boolean,
-  "No of Rooms": Boolean,
-  "Single Sharing Rooms": Boolean,
-  "Double Sharing Rooms": Boolean,
-  "Triple Sharing Rooms": Boolean,
-  "Four Sharing Rooms": Boolean,
-  "Room Size": Boolean,
-  "Budget Only Rooms": Boolean,
-  "Budget With All Meals": Boolean,
-  "Hotel Name": Boolean,
-  "Hotel Type": Boolean,
-  "Restaurant Name": Boolean,
-  "Restaurant Type": Boolean,
-  Seatry: Boolean,
-  "Car Parking": Boolean,
-  "Water 24hr": Boolean,
-  "Police Station": Boolean,
-  "Railway Station": Boolean,
-  "Metro Station": Boolean,
-  "Furnish Type": Boolean,
-  "Sky View": Boolean,
-  "Pool View": Boolean,
-  "Garden View": Boolean,
-  "Parking View": Boolean,
-  "Club House View": Boolean,
-  "Main intrance Gate View": Boolean,
-  "Outer Building View": Boolean,
-  "Swiming Pool": Boolean,
-  "Club House": Boolean,
-  "Indoor Sports": Boolean,
-  "Outdoor Sports": Boolean,
-  Garden: Boolean,
-  Temple: Boolean,
-  "School:": Boolean,
-  Hospital: Boolean,
-  Gim: Boolean,
-  Pool: Boolean,
-  Sports: Boolean,
-  Parking: Boolean,
-  "Study Table": Boolean,
-  Alram: Boolean,
-  Locker: Boolean,
-  Kitchen: Boolean,
-  Bar: Boolean,
-  "Banquet Hall": Boolean,
-  Date: Boolean
-});
-const Property = mongoose.model("Property", schema);
-const Header = mongoose.model("Header", schemaHeader);
+
+const RequestProperty = mongoose.model("Requestproperty", schema);
 
 function validateCustomer(customer) {
   const schema = {
@@ -175,6 +98,5 @@ function validateCustomer(customer) {
   return Joi.validate(customer, schema);
 }
 
-exports.Property = Property;
-exports.Header = Header;
+exports.RequestProperty = RequestProperty;
 exports.validate = validateCustomer;
