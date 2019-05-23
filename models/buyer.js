@@ -8,6 +8,9 @@ const Buyer = mongoose.model(
     Name: String,
     Email: String,
     Mobile: String,
+    "Company Name": String,
+    "Reference Name": String,
+    Designation: String,
     Date: Date
   })
 );

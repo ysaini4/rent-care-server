@@ -53,7 +53,7 @@ router.delete("/", adminAuth, async (req, res) => {
       .send({ status: false, msg: "Unable to Delete Property", error: err });
   }
 });
-router.post("/search", auth, async (req, res) => {
+router.post("/search", async (req, res) => {
   try {
     const properties = await Property.find(req.body).sort({ Date: -1 });
     res.send(properties);
@@ -148,7 +148,7 @@ router.put("/updateproperty", async (req, res) => {
       .send({ status: false, msg: "Unable to update Property", error: err });
   }
 });
-router.put("/markunread", async (req, res) => {
+/*router.put("/markunread", async (req, res) => {
   try {
     const result = await Property.updateMany({}, { MarkAsRead: false });
     if (result && result.nModified)
@@ -158,7 +158,7 @@ router.put("/markunread", async (req, res) => {
       .status(500)
       .send({ status: false, msg: "Unable to update Property", error: err });
   }
-});
+});*/
 router.post("/addheader", adminAuth, async (req, res) => {
   try {
     let header = new Header(req.body);
