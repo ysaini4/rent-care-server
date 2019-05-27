@@ -66,7 +66,6 @@ router.post("/search", async (req, res) => {
 router.post("/gotp", async (req, res) => {
   try {
     var http = require("http");
-
     var options = {
       method: "POST",
       hostname: "control.msg91.com",
@@ -97,6 +96,7 @@ router.post("/gotp", async (req, res) => {
       .send({ status: false, msg: "Unable to Generate Otp", error: err });
   }
 });
+
 router.post("/votp", async (req, res) => {
   try {
     var http = require("http");
@@ -129,6 +129,40 @@ router.post("/votp", async (req, res) => {
     res
       .status(500)
       .send({ status: false, msg: "Unable to Generate Otp", error: err });
+  }
+});
+router.post("/sendmsg", async (req, res) => {
+  try {
+    var http = require("http");
+    var options = {
+      method: "GET",
+      hostname: "api.msg91.com",
+      port: null,
+      path: `/api/sendhttp.php?mobiles=${
+        req.body.mobile
+      }&authkey=275294A6MSZJwM5ccfbcd4&route=4&sender=TESTIN&message=${
+        req.body.msg
+      }&country=91`,
+      headers: {}
+    };
+    var req1 = http.request(options, function(res1) {
+      var chunks = [];
+
+      res1.on("data", function(chunk) {
+        chunks.push(chunk);
+      });
+      res1.on("end", function() {
+        var body = Buffer.concat(chunks);
+        //res.send(body.toString());
+        res.send({ status: true, type: "success", ress: body.toString() });
+      });
+    });
+
+    req1.end();
+  } catch (err) {
+    res
+      .status(500)
+      .send({ status: false, msg: "Unable to Send msg", error: err });
   }
 });
 router.put("/updateproperty", async (req, res) => {
