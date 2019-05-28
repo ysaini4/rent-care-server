@@ -7,6 +7,7 @@ const schema = new mongoose.Schema({
   Property: String,
   PropertyFor: String,
   Ptype: String,
+  Utype: String,
   Address: String,
   Name: String,
   "Company Name": String,
@@ -77,7 +78,8 @@ const schema = new mongoose.Schema({
   Kitchen: Boolean,
   Bar: Boolean,
   "Banquet Hall": Boolean,
-  Date: Date
+  Date: Date,
+  "Available for": String
 });
 const schemaHeader = new mongoose.Schema({
   topId: Number,
@@ -87,6 +89,7 @@ const schemaHeader = new mongoose.Schema({
   Property: Boolean,
   PropertyFor: Boolean,
   Ptype: Boolean,
+  Utype: Boolean,
   Address: Boolean,
   Name: Boolean,
   "Company Name": Boolean,
@@ -154,7 +157,8 @@ const schemaHeader = new mongoose.Schema({
   Kitchen: Boolean,
   Bar: Boolean,
   "Banquet Hall": Boolean,
-  Date: Boolean
+  Date: Boolean,
+  "Available for": Boolean
 });
 const Property = mongoose.model("Property", schema);
 const Header = mongoose.model("Header", schemaHeader);

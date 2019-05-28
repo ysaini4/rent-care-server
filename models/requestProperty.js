@@ -7,6 +7,7 @@ const schema = new mongoose.Schema({
   Property: String,
   PropertyFor: String,
   Ptype: String,
+  Utype: String,
   Address: String,
   Name: String,
   "Company Name": String,
@@ -77,7 +78,8 @@ const schema = new mongoose.Schema({
   Kitchen: Boolean,
   Bar: Boolean,
   "Banquet Hall": Boolean,
-  Date: Date
+  Date: Date,
+  "Available for": String
 });
 
 const RequestProperty = mongoose.model("Requestproperty", schema);
