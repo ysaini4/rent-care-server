@@ -25,6 +25,7 @@ const schema = new mongoose.Schema({
   "Approx Area": Number,
   Budget: Number,
   Image: String,
+  ImagePublicId: String,
   Having: String,
   Badrooms: String,
   Bathrooms: String,

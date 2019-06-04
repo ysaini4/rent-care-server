@@ -1,8 +1,8 @@
 var cloudinary = require("cloudinary");
 module.exports = function() {
   cloudinary.config({
-    cloud_name: "ysaini4",
-    api_key: "418661371142981",
-    api_secret: "Jb6PuRIoHUpOC6S1yiSd2R_Uc94"
+    cloud_name: "rentcare",
+    api_key: "822228516575193",
+    api_secret: "_A4wM4a_7ijwsSblih8sv0RC1YE"
   });
 };

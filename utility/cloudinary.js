@@ -21,4 +21,9 @@ const cloudinaryUpload = async function(reqFile, dir) {
   }
   return;
 };
-module.exports = cloudinaryUpload;
+const cloudinaryDelete = async publicId => {
+  let res = await cloudinary.v2.uploader.destroy(publicId);
+};
+exports.cloudinaryDelete = cloudinaryDelete;
+exports.cloudinaryUpload = cloudinaryUpload;
+//module.exports = cloudinaryUpload;

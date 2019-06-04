@@ -4,7 +4,7 @@ const config = require("config");
 const { Property } = require("../models/property");
 const { Header } = require("../models/property");
 const multerUploads = require("../utility/multipartform");
-const cloudinaryUpload = require("../utility/cloudinary");
+const { cloudinaryUpload, cloudinaryDelete } = require("../utility/cloudinary");
 const { auth, adminAuth } = require("../middleware/auth");
 const { pNumRefctor } = require("../middleware/pNumRefctor");
 router.post(
@@ -18,6 +18,7 @@ router.post(
         config.get("cloudnaryDir")
       );
       req.body.Image = uploadRes.secure_url;
+      req.body.ImagePublicId = uploadRes.public_id;
       req.body.Date = new Date();
       req.body.MarkAsRead = false;
       req.body.Publish = false;
@@ -45,8 +46,11 @@ router.get("/", auth, async (req, res) => {
 });
 router.delete("/", adminAuth, async (req, res) => {
   try {
-    const delRes = await Property.deleteOne(req.body);
-    if (delRes) res.send({ status: true, msg: "Property Deleted." });
+    const delRes = await Property.findOneAndDelete(req.body);
+    if (delRes) {
+      await cloudinaryDelete(delRes.ImagePublicId);
+      res.send({ status: true, msg: "Property Deleted." });
+    }
   } catch (err) {
     res
       .status(500)
@@ -72,7 +76,7 @@ router.post("/gotp", async (req, res) => {
       port: null,
       path: `/api/sendotp.php?mobile=${
         req.body.mobile
-      }&authkey=275294A6MSZJwM5ccfbcd4&message=##OTP##&sender=RNTCR`,
+      }&authkey=275294A6MSZJwM5ccfbcd4&message=##OTP##&sender=RENTCR`,
       headers: {}
     };
 
@@ -140,7 +144,7 @@ router.post("/sendmsg", async (req, res) => {
       port: null,
       path: `/api/sendhttp.php?mobiles=${
         req.body.mobile
-      }&authkey=275294A6MSZJwM5ccfbcd4&route=4&sender=TESTIN&message=${
+      }&authkey=275294A6MSZJwM5ccfbcd4&route=4&sender=RENTCR&message=${
         req.body.msg
       }&country=91`,
       headers: {}

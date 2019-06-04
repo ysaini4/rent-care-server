@@ -1,5 +1,5 @@
 {
-  "cloudnaryDir": "temp",
+  "cloudnaryDir": "propertyImages",
   "jwtPrivateKey": "helloyogy",
   "requiresAuth": true
 }
